@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function (): void {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/gacha', [\App\Http\Controllers\GachaController::class, 'index']);
+    Route::get('/gacha/{id}', [\App\Http\Controllers\GachaController::class, 'exec']);
 });
 
 Auth::routes();
