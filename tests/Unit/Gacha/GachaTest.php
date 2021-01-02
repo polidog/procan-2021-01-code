@@ -6,9 +6,12 @@ use App\Gacha\Gacha;
 use App\Gacha\Item;
 use App\Gacha\Prize;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GachaTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testDraw(): void
     {
         $gacha = new Gacha();
