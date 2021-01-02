@@ -15,8 +15,12 @@ class Gacha
      * @return Item
      * @throws \Exception
      */
-    public function draw(): Item
+    public function draw(ItemBox $itemBox): Item
     {
+        if ($itemBox->isFull()) {
+            throw new \Exception('アイテムボックスがいっぱいです');
+        }
+
         $totalProbability = array_reduce($this->prizes, static function (int $ac, Prize $prize) {
             return $ac + $prize->getProbability();
         }, 0);
@@ -27,7 +31,9 @@ class Gacha
             $countPriority += $prize->getProbability();
 
             if ($boundary <= $countPriority) {
-                return $prize->getItem();
+                $item = $prize->getItem();
+                $itemBox->add($item);
+                return $item;
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service\ItemBoxService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,8 +22,12 @@ class Gacha extends Model
      * @return Item
      * @throws \Exception
      */
-    public function draw(): Item
+    public function draw(ItemBoxService $itemBoxService): Item
     {
+        if ($itemBoxService->isFull()) {
+            throw new \Exception('アイテムボックスがいっぱいです');
+        }
+
         $totalProbability = $this->prizes->reduce(static function (int $ac, Prize $prize) {
             return $ac + $prize->probability;
         }, 0);
@@ -34,7 +39,9 @@ class Gacha extends Model
             $countPriority += $prize->probability;
 
             if ($boundary <= $countPriority) {
-                return $prize->item;
+                $item = $prize->item;
+                $itemBoxService->add($item);
+                return $item;
             }
         }
 
