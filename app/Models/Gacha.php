@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Gacha
  *
+ * @property string $name
  * @property Collection $prizes
  */
 class Gacha extends Model
 {
     use HasFactory;
+    private const MAX_PRIZE = 10;
 
     /**
      * @return Item
@@ -37,6 +39,24 @@ class Gacha extends Model
         }
 
         throw new \RuntimeException('item not found.');
+    }
+
+    /**
+     * @param Prize $prize
+     * @throws \Exception
+     */
+    public function addPrize(Prize $prize): void
+    {
+        if ($this->hasPrizes()) {
+            throw new \Exception('景品の上限を超えています');
+        }
+        $prize->gacha()->associate($this);
+        $this->prizes()->save($prize);
+    }
+
+    public function hasPrizes(): bool
+    {
+        return $this->prizes()->count('id') === self::MAX_PRIZE;
     }
 
     public function prizes()
