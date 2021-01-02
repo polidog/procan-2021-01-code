@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Prize
  * @package App\Models
+ * @property int $probability
  */
 class Prize extends Model
 {
