@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function (): void {
     Route::get('/gacha', [\App\Http\Controllers\GachaController::class, 'index']);
     Route::get('/gacha/{id}', [\App\Http\Controllers\GachaController::class, 'exec']);
+    Route::get('/itemBox', [\App\Http\Controllers\ItemBoxController::class, 'index'])->name('itemBox');
+    Route::get('/itemBox/{id}/remove', [\App\Http\Controllers\ItemBoxController::class, 'remove'])->name('itemBoxRemove');
 });
 
 Auth::routes();

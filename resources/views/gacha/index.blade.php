@@ -13,12 +13,10 @@
                         </div>
                         @if ($isFull)
                             <div><a class="btn btn-primary btn-block disabled">ガチャを引く</a></div>
-                            <div>
-                                <a href="#">アイテムボックスへ</a>
-                            </div>
                         @else
-                            <a href="{{ url('/gacha', $gacha->id) }}" class="btn btn-primary btn-block">ガチャを引く</a>
+                            <div><a href="{{ url('/gacha', $gacha->id) }}" class="btn btn-primary btn-block">ガチャを引く</a></div>
                         @endif
+                        <div style="margin-top: 15px;"><a href="{{ url('/itemBox') }}" class="btn btn-primary btn-block">アイテムボックスへ</a></div>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,7 @@
                             「{{ $item->name }}」を取得しました!!!!
                         </div>
                         <a href="{{ url('/gacha') }}" class="btn btn-primary btn-block">戻る</a>
+                        <a href="{{ url('/itemBox') }}" class="btn btn-primary btn-block">アイテムボックスへ</a>
                     </div>
                 </div>
             </div>
