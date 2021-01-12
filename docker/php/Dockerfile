@@ -1,3 +1,5 @@
+FROM node:12-buster as node
+
 FROM php:7.4-fpm-buster
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
@@ -28,5 +30,8 @@ RUN apt-get update && \
 
 #COPY ./www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 COPY ./php.ini /usr/local/etc/php/php.ini
+
+COPY --from=node /usr/local/bin /usr/local/bin
+COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
 
 WORKDIR /app
